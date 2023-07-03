@@ -2,12 +2,18 @@ package cash.controller;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import cash.model.CashbookDao;
+import cash.vo.Cashbook;
+import cash.vo.Member;
 
 @WebServlet("/calendar")
 public class CalendarController extends HttpServlet {
@@ -15,6 +21,16 @@ public class CalendarController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		session 인증검사
+		HttpSession session = request.getSession();
+		Member loginMember = new Member();
+		
+		if(session.getAttribute("loginMember") != null) {
+			loginMember = (Member) (session.getAttribute("loginMember"));
+		}else {
+			request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+			return;
+		}
+		String memberId = loginMember.getMemberId();
 		
 //		view에 넘겨줄 달력정보(모델값)
 		Calendar firstDay = Calendar.getInstance(); // 오늘날짜
@@ -59,6 +75,9 @@ public class CalendarController extends HttpServlet {
 		System.out.println(endBlank + " <- endBlank");
 		System.out.println(totalCell + " <- totalCell");
 		
+//		모델을 호출(DAO 해당월의 수입 지출)
+		List<Cashbook> list = new CashbookDao().selectCashbookListByMonth(memberId, targetYear, targetMonth);
+		
 //		뷰에 값넘기기(request 속성)
 		request.setAttribute("targetYear", targetYear);
 		request.setAttribute("targetMonth", targetMonth);
@@ -66,6 +85,9 @@ public class CalendarController extends HttpServlet {
 		request.setAttribute("totalCell", totalCell);
 		request.setAttribute("beginBlank", beginBlank);
 		request.setAttribute("endBlank", endBlank);
+		
+		request.setAttribute("list", list);
+		
 //		달력을 출력하는 뷰
 		request.getRequestDispatcher("/WEB-INF/view/calendar.jsp").forward(request, response);
 	}

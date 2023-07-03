@@ -18,10 +18,6 @@ public class Member {
 		this.createdate = createdate;
 	}
 
-
-
-
-
 	public String getMemberId() {
 		return memberId;
 	}

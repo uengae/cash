@@ -9,6 +9,7 @@
 	<h1>cashbook.jsp</h1>
 	<!-- 컨트롤러 매핑 이름 : logout -->
 	<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
+	<a href="${pageContext.request.contextPath}/calendar">캐쉬북</a>
 	<a href="${pageContext.request.contextPath}/memberOne">회원정보</a>
 </body>
 </html>

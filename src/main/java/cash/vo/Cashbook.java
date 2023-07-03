@@ -4,24 +4,21 @@ public class Cashbook {
 
 	private int cashbookNo; 
 	private String category;
-	private String cashBookDate;
+	private String cashbookDate;
 	private String memo;
 	private int price;
 	private String updatedate;
 	private String createdate;
-	/**
-	 * 
-	 */
 	public Cashbook() {
 		super();
 	}
 	
-	public Cashbook(int cashbookNo, String category, String cashBookDate, String memo, int price, String updatedate,
+	public Cashbook(int cashbookNo, String category, String cashbookDate, String memo, int price, String updatedate,
 			String createdate) {
 		super();
 		this.cashbookNo = cashbookNo;
 		this.category = category;
-		this.cashBookDate = cashBookDate;
+		this.cashbookDate = cashbookDate;
 		this.memo = memo;
 		this.price = price;
 		this.updatedate = updatedate;
@@ -40,11 +37,11 @@ public class Cashbook {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public String getCashBookDate() {
-		return cashBookDate;
+	public String getCashbookDate() {
+		return cashbookDate;
 	}
-	public void setCashBookDate(String cashBookDate) {
-		this.cashBookDate = cashBookDate;
+	public void setCashbookDate(String cashbookDate) {
+		this.cashbookDate = cashbookDate;
 	}
 	public String getMemo() {
 		return memo;

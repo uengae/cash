@@ -3,20 +3,28 @@ package cash.vo;
 public class Cashbook {
 
 	private int cashbookNo; 
+	private String memberId;
 	private String category;
 	private String cashbookDate;
 	private String memo;
 	private int price;
 	private String updatedate;
 	private String createdate;
-	public Cashbook() {
-		super();
+	
+	@Override
+	public String toString() {
+		return "Cashbook [cashbookNo=" + cashbookNo + ", memberId=" + memberId + ", category=" + category
+				+ ", cashbookDate=" + cashbookDate + ", memo=" + memo + ", price=" + price + ", updatedate="
+				+ updatedate + ", createdate=" + createdate + "]";
 	}
 	
-	public Cashbook(int cashbookNo, String category, String cashbookDate, String memo, int price, String updatedate,
-			String createdate) {
+	public Cashbook() {
+	}
+	public Cashbook(int cashbookNo, String memberId, String category, String cashbookDate, String memo, int price,
+			String updatedate, String createdate) {
 		super();
 		this.cashbookNo = cashbookNo;
+		this.memberId = memberId;
 		this.category = category;
 		this.cashbookDate = cashbookDate;
 		this.memo = memo;
@@ -30,6 +38,12 @@ public class Cashbook {
 	}
 	public void setCashbookNo(int cashbookNo) {
 		this.cashbookNo = cashbookNo;
+	}
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 	public String getCategory() {
 		return category;
@@ -67,8 +81,5 @@ public class Cashbook {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
-	
-	
-	
 	
 }

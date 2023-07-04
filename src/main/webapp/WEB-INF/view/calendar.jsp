@@ -70,7 +70,7 @@
 				<c:if test="${!(d < 1 || d > lastDate)}">
 					<td>
 						<div>
-							<a href="${pageContext.request.contextPath}/calendarOne?targetYear=${targetYear}&targetMonth=${targetMonth}&day=${d}">
+							<a href="${pageContext.request.contextPath}/cashbook?targetYear=${targetYear}&targetMonth=${targetMonth}&day=${d}">
 								${d}
 							</a>
 						</div>

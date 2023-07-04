@@ -93,16 +93,7 @@ public class AddCashbookController extends HttpServlet {
 //		해시태그 추출 알고리즘
 //		##구디 #구디#자바
 		HashtagDao hashtagDao = new HashtagDao();
-		String memo2 = memo.replace("#", " #"); // "#구디#아카데미" -> " #구디 #아카데미"
-		for(String ht : memo2.split(" ")) {
-			String ht2 = ht.replace("#", "");
-			if(ht2.length() > 0) {
-				Hashtag hashtag = new Hashtag();
-				hashtag.setCashbookNo(cashbookNo);
-				hashtag.setWord(ht2);
-				hashtagDao.insertHashTag(hashtag);
-			}
-		}
+		hashtagDao.splitHashtag(memo, cashbookNo);
 //		redirect -> calendarOneController
 		response.sendRedirect(request.getContextPath() + "/cashbook?targetYear=" + targetYear + "&targetMonth=" + targetMonth + "&day=" + day);
 	}

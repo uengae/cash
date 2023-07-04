@@ -43,7 +43,16 @@
 		<button type="button" id="preMonthBtn">이전달</button>
 		<button type="button" id="nextMonthBtn">다음달</button>
 	</form>
-	
+	<div>
+		<h2>이달의 해시테그</h2>
+		<div>
+			<c:forEach var="m" items="${htList}">
+				<a href="">
+					${m.word}(${m.cnt})
+				</a>
+			</c:forEach>
+		</div>
+	</div>
 	<table>
 		<tr>
 			<th>일</th>

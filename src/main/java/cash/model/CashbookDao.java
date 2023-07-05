@@ -51,15 +51,12 @@ public class CashbookDao {
 	}
 //	수입, 지출 입력
 //	반환값 : cashbook_no 키값
-	public int insertCashbook(Cashbook cashbook) {
+//	트랜잭션
+	public int insertCashbook(Connection conn, Cashbook cashbook) throws SQLException {
 		int cashbookNo = 0;
-		Connection conn = null;
 		PreparedStatement stmt =null;
 		ResultSet rs = null;
-
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
 			String sql = "INSERT INTO cashbook"
 					+ " (member_id, category, cashbook_date, price, memo, updatedate, createdate)"
 					+ " VALUES(?, ?, ?, ?, ?, NOW(), NOW())";
@@ -74,13 +71,10 @@ public class CashbookDao {
 			if(rs.next()) {
 				cashbookNo = rs.getInt(1);
 			}
-		} catch(Exception e) {
-			e.printStackTrace();
 		} finally {
 			try {
 				rs.close();
 				stmt.close();
-				conn.close();
 			} catch(Exception e2) {
 				e2.printStackTrace();
 			}

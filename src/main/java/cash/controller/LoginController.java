@@ -46,7 +46,6 @@ public class LoginController extends HttpServlet {
 		System.out.println("로그인 성공");
 		session.setAttribute("loginMember", loginMember);
 		response.sendRedirect(request.getContextPath()+"/cashbook");		//get방식으로 오기 떄문에 jsp페이지로 간다
-
 	}
 
 }

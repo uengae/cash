@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import cash.model.CashbookDao;
 import cash.model.HashtagDao;
+import cash.service.CashbookService;
 import cash.vo.Cashbook;
 import cash.vo.Hashtag;
 import cash.vo.Member;
@@ -81,20 +82,14 @@ public class AddCashbookController extends HttpServlet {
 		cashbook.setCategory(category);
 		cashbook.setPrice(price);
 		cashbook.setMemo(memo);
-		CashbookDao cashbookDao = new CashbookDao();
-		int cashbookNo = cashbookDao.insertCashbook(cashbook); // 키값 반환
-		if (cashbookNo == 0) {
+		CashbookService cashbookService = new CashbookService();
+		int checkRow = cashbookService.insertCashbookHashtag(cashbook); // 키값 반환
+		if (checkRow == 0) {
 			System.out.println("입력실패");
 			response.sendRedirect(request.getContextPath() + "/addCashbook?targetYear=" + targetYear + "&targetMonth=" + targetMonth + "&day=" + day);
 			return;
 		}
 		
-//		입력성공시 -> 해시태그가 있다면 -> 해시태그 추출 -> 해시태그 입력(반복)
-//		해시태그 추출 알고리즘
-//		##구디 #구디#자바
-		HashtagDao hashtagDao = new HashtagDao();
-		hashtagDao.splitHashtag(memo, cashbookNo);
-//		redirect -> calendarOneController
 		response.sendRedirect(request.getContextPath() + "/cashbook?targetYear=" + targetYear + "&targetMonth=" + targetMonth + "&day=" + day);
 	}
 

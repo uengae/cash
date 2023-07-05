@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -65,7 +66,7 @@ public class HashtagDao {
 	   }
 	
 //	hashtag 분류
-	public void splitHashtag(String memo, int cashbookNo){
+	public List<Hashtag> splitHashtag(String memo, int cashbookNo){
 //		set은 데이터 중복값을 허용하지 않는다.
 		Set<String> set = new HashSet<String>();
 		memo = memo.replace("#", " #");
@@ -78,27 +79,23 @@ public class HashtagDao {
 				}
 			}
 		}
-//		set데이터를 읽기위해서는 iterator()를 사용해야한다
-		Iterator<String> it = set.iterator();
-		while (it.hasNext()) {
+		
+		List<Hashtag> list = new ArrayList<Hashtag>();
+		for (String s : set) {
 			Hashtag h = new Hashtag();
 			h.setCashbookNo(cashbookNo);
-			h.setWord(it.next());
-			System.out.println(h.getWord() + " <- splitHashtag word");
-			int row = insertHashTag(h);
-			System.out.println(row + " <- splitHashtag row");
+			h.setWord(s);
+			list.add(h);
 		}
+		return list;
 	}
 	
 //	hashtag입력
-	public int insertHashTag(Hashtag hashtag) {
+	public int insertHashTag(Connection conn, Hashtag hashtag) throws SQLException {
 		int row = 0;
-		Connection conn = null;
 		PreparedStatement stmt =null;
 
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
 			String sql = "INSERT INTO hashtag"
 					+ " (cashbook_no, word, updatedate, createdate)"
 					+ " VALUES(?, ?, NOW(), NOW())";
@@ -106,12 +103,9 @@ public class HashtagDao {
 			stmt.setInt(1, hashtag.getCashbookNo());
 			stmt.setString(2, hashtag.getWord());
 			row = stmt.executeUpdate();
-		} catch(Exception e) {
-			e.printStackTrace();
 		} finally {
 			try {
 				stmt.close();
-				conn.close();
 			} catch(Exception e2) {
 				e2.printStackTrace();
 			}

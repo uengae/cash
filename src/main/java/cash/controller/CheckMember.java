@@ -12,14 +12,21 @@ import cash.model.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
 
-@WebServlet("/checkMemberId")
-public class CheckMemberId extends HttpServlet {
+@WebServlet("/checkMember")
+public class CheckMember extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json");
 		
 		String memberId = request.getParameter("memberId");
+		String memberPw = request.getParameter("memberPw");
+		
 		MemberDao dao = new MemberDao();
-		int row = dao.idCheck(memberId);
+		int row = 0;
+		if(request.getParameter("memberPw") == null) {
+			row = dao.idCheck(memberId);
+		} else {
+			row = dao.idCheck(memberId, memberPw);
+		}
 		System.out.println(row);
 		
 		//json 변환 라이브러리

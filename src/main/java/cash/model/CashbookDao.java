@@ -12,6 +12,43 @@ import java.util.List;
 import cash.vo.Cashbook;
 
 public class CashbookDao {
+	
+//	총갯수 출력
+	public int totalTagCnt(String memberId, String word) {
+		int totalTagCnt = 0;
+		Connection conn = null;
+		PreparedStatement stmt =null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) cnt"
+				+ " FROM cashbook c INNER JOIN hashtag h"
+				+ " ON c.cashbook_no = h.cashbook_no"
+				+ " WHERE c.member_id = ?"
+				+ " AND h.word = ?";
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			stmt.setString(2, word);
+			System.out.println(stmt);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				totalTagCnt = rs.getInt("cnt");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}				
+		}
+		return totalTagCnt;
+	}
 //	수입, 지출 입력
 //	반환값 : cashbook_no 키값
 	public int insertCashbook(Cashbook cashbook) {
@@ -50,6 +87,54 @@ public class CashbookDao {
 		}
 		
 		return cashbookNo;
+	}
+	
+//	hashtag 데이터 출력
+	public List<Cashbook> selectCashbookListByTag(String memberId, String word, int beginRow, int rowPerPage){
+		List<Cashbook> list = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement stmt =null;
+		ResultSet rs = null;
+		String sql = "SELECT c.cashbook_no cashbookNo, c.category category, c.price price, c.cashbook_date cashbookDate, c.memo memo, c.createdate createdate"
+				+ " FROM cashbook c INNER JOIN hashtag h"
+				+ " ON c.cashbook_no = h.cashbook_no"
+				+ " WHERE c.member_id = ?"
+				+ " AND h.word = ?"
+				+ " ORDER BY c.cashbook_date DESC"
+				+ " LIMIT ?, ?";
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			stmt.setString(2, word);
+			stmt.setInt(3, beginRow);
+			stmt.setInt(4, rowPerPage);
+			System.out.println(stmt);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				Cashbook c = new Cashbook();
+				c.setCashbookNo(rs.getInt("cashbookNo"));
+				c.setCategory(rs.getString("category"));
+				c.setPrice(rs.getInt("price"));
+				c.setMemo(rs.getString("memo"));
+				c.setCreatedate(rs.getString("createdate"));
+				c.setCashbookDate(rs.getString("cashbookDate"));
+				list.add(c);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}				
+		}		
+		return list;
 	}
 	
 //	cashbook 데이터 출력

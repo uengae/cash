@@ -47,7 +47,7 @@
 		<h2>이달의 해시테그</h2>
 		<div>
 			<c:forEach var="m" items="${htList}">
-				<a href="">
+				<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${m.word}">
 					${m.word}(${m.cnt})
 				</a>
 			</c:forEach>

@@ -46,7 +46,7 @@
 				<tr>
 					<th>아이디</th>
 					<td>
-						<input type ="text" name="memberId" id="memberId">
+						<input type ="text" name="memberId" id="memberId" value="${loginId}">
 					</td>
 				</tr>
 				<tr>
@@ -56,7 +56,10 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2">
+					<th>
+						 ID저장 <input type="checkbox" name="idSave">
+					</th>
+					<td>
 						<button class="btn btn-secondary" type="button" id="loginBtn">로그인</button>
 						<a class="btn btn-primary" href="${pageContext.request.contextPath}/addMember">회원가입</a>
 					</td>

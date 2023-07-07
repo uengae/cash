@@ -25,7 +25,6 @@ public class CashbookDao {
 				+ " WHERE c.member_id = ?"
 				+ " AND h.word = ?";
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId);
@@ -97,7 +96,6 @@ public class CashbookDao {
 				+ " ORDER BY c.cashbook_date DESC"
 				+ " LIMIT ?, ?";
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId);
@@ -132,6 +130,7 @@ public class CashbookDao {
 	}
 	
 //	cashbook 데이터 출력
+//	override
 	public List<Cashbook> selectCashbookListByMonth(String memberId, int targetYear, int targetMonth){
 		List<Cashbook> list = new ArrayList<>();
 		
@@ -139,23 +138,34 @@ public class CashbookDao {
 		PreparedStatement stmt =null;
 		ResultSet rs = null;
 		
-		String sql = "SELECT cashbook_no cashbookNo, category, price, cashbook_date cashbookDate\r\n"
+		String sql = "SELECT case when category='지출' then '총 지출'\r\n"
+				+ "				ELSE '총 수입' END AS category\r\n"
+				+ "		, SUM(case when category='지출' then -price\r\n"
+				+ "				ELSE price END) AS price\r\n"
+				+ "		, cashbook_date AS cashbookDate\r\n"
 				+ "FROM cashbook\r\n"
-				+ "WHERE member_id = ? AND YEAR(cashbook_date) = ? AND MONTH(cashbook_date) = ?\r\n"
-				+ "ORDER BY cashbook_date";
+				+ "WHERE member_id = ? and YEAR(cashbook_date) = ? AND MONTH(cashbook_date) = ?\r\n"
+				+ "GROUP BY category, cashbook_date\r\n"
+				+ "UNION ALL\r\n"
+				+ "SELECT category, price, cashbook_date cashbookDate\r\n"
+				+ "FROM cashbook\r\n"
+				+ "WHERE member_id = ? and YEAR(cashbook_date) = ? AND MONTH(cashbook_date) = ?"
+				;
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId);
 			stmt.setInt(2, targetYear);
 			stmt.setInt(3, targetMonth + 1);
+			stmt.setString(4, memberId);
+			stmt.setInt(5, targetYear);
+			stmt.setInt(6, targetMonth + 1);
 			System.out.println(stmt);
 			rs = stmt.executeQuery();
 			while(rs.next()) {
 				Cashbook c = new Cashbook();
-				c.setCashbookNo(rs.getInt("cashbookNo"));
 				c.setCategory(rs.getString("category"));
+//				System.out.println(rs.getString("category"));
 				c.setPrice(rs.getInt("price"));
 				c.setCashbookDate(rs.getString("cashbookDate"));
 				list.add(c);
@@ -178,6 +188,7 @@ public class CashbookDao {
 	
 	
 //	원하는 날짜의 cashbook data 출력
+//	override
 	public List<Cashbook> selectCashbookListByMonth(String memberId, int targetYear, int targetMonth, int day){
 		List<Cashbook> list = new ArrayList<>();
 		
@@ -190,7 +201,6 @@ public class CashbookDao {
 				+ "WHERE member_id = ? AND YEAR(cashbook_date) = ? AND MONTH(cashbook_date) = ? AND DAY(cashbook_date) = ?\r\n"
 				+ "ORDER BY cashbook_date";
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId);

@@ -40,6 +40,7 @@ public class CalendarController extends HttpServlet {
 //		출력하고자하는 년도, 월, 일의 기본값
 		int targetYear = firstDay.get(Calendar.YEAR);
 		int targetMonth = firstDay.get(Calendar.MONTH);
+		int today = firstDay.get(Calendar.DATE);
 		firstDay.set(Calendar.DATE, 1);
 		
 //		출력하고자 하는 년도와 월이 매개값으로 넘어왓다면
@@ -85,6 +86,7 @@ public class CalendarController extends HttpServlet {
 //		뷰에 값넘기기(request 속성)
 		request.setAttribute("targetYear", targetYear);
 		request.setAttribute("targetMonth", targetMonth);
+		request.setAttribute("today", today);
 		request.setAttribute("lastDate", lastDate);
 		request.setAttribute("totalCell", totalCell);
 		request.setAttribute("beginBlank", beginBlank);

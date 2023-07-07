@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import cash.model.*;
 import cash.vo.*;
+import cash.service.*;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -15,9 +17,20 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
+	private CounterService counterService = null;
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		this.counterService = new CounterService();
+		
+		int counter = counterService.getCounter();
+		int totalCounter = counterService.getTotalCounter();
+		
+		request.setAttribute("counter", counter);
+		request.setAttribute("totalCounter", totalCounter);
+		
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/login.jsp");
+		rd.forward(request, response);
 
 //		쿠키에 저장된 아이디가 있다면 request속성에 저장
 		Cookie[] cookies = request.getCookies();
@@ -29,7 +42,6 @@ public class LoginController extends HttpServlet {
 				}
 			}
 		}
-		rd.forward(request, response);
 		
 //		System.out.println("check");
 		HttpSession session = request.getSession();

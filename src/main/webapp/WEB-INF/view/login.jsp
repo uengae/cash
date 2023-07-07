@@ -65,6 +65,12 @@
 					</td>
 				</tr>
 			</table>
+			<div>
+				 오늘 방문자 : ${counter}
+			</div>
+			<div>
+				 총 방문자 : ${totalCounter}
+			</div>
 		</div>
 	</form>
 </body>

@@ -8,11 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<style>
-		table{
-			width: 100%;
-		}
-	</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	<script>
 		$(document).ready(function(){
@@ -40,29 +36,32 @@
 	<form action="${pageContext.request.contextPath}/calendar" method="get" id="changeMonthForm">
 		<input type="hidden" name="targetMonth" id="targetMonth">
 		<input type="hidden" name="targetYear" value="${targetYear}">
-		<button type="button" id="preMonthBtn">이전달</button>
-		<button type="button" id="nextMonthBtn">다음달</button>
+		<button class="btn btn-outline-primary" type="button" id="preMonthBtn">이전달</button>
+		<button class="btn btn-outline-primary" type="button" id="nextMonthBtn">다음달</button>
 	</form>
+	<h4>현재 접속자 : ${currentCounter}</h4>
 	<div>
 		<h2>이달의 해시테그</h2>
 		<div>
 			<c:forEach var="m" items="${htList}">
-				<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${m.word}">
+				<a class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/cashbookListByTag?word=${m.word}">
 					${m.word}(${m.cnt})
 				</a>
 			</c:forEach>
 		</div>
 	</div>
-	<table>
-		<tr>
-			<th>일</th>
-			<th>월</th>
-			<th>화</th>
-			<th>수</th>
-			<th>목</th>
-			<th>금</th>
-			<th>토</th>
-		</tr>
+	<table class="table table-bordered">
+		<thead class="table-dark">
+			<tr>
+				<th style="width: 14%;">일</th>
+				<th style="width: 14%;">월</th>
+				<th style="width: 14%;">화</th>
+				<th style="width: 14%;">수</th>
+				<th style="width: 14%;">목</th>
+				<th style="width: 14%;">금</th>
+				<th style="width: 14%;">토</th>
+			</tr>
+		</thead>
 		<tr>
 			<c:forEach var="i" begin="0" end="${totalCell - 1}" step="1">
 				<c:set var="d" value="${i - beginBlank + 1}"></c:set>
@@ -77,7 +76,8 @@
 				</c:if>
 
 				<c:if test="${!(d < 1 || d > lastDate)}">
-					<td>
+				
+					<td style="height: 200px;">
 						<div>
 							<a href="${pageContext.request.contextPath}/cashbook?targetYear=${targetYear}&targetMonth=${targetMonth}&day=${d}">
 								${d}
@@ -86,6 +86,12 @@
 						<c:forEach var="c" items="${list}">
 							<c:if test="${d == fn:substring(c.cashbookDate, 8, 10)}">
 								<div>
+									<c:if test="${c.category == '총 수입'}">
+										<span>총 수입 : ${c.price}</span>
+									</c:if>
+									<c:if test="${c.category == '총 지출'}">
+										<span style="color:red;">총 지출 : ${c.price}</span>
+									</c:if>
 									<c:if test="${c.category == '수입'}">
 										<span>+${c.price}</span>
 									</c:if>
@@ -97,49 +103,8 @@
 						</c:forEach>
 					</td>
 				</c:if>
-				
 			</c:forEach>
 		</tr>
 	</table>
-	
-	<%-- <table>
-		<tr>
-			<th>일</th>
-			<th>월</th>
-			<th>화</th>
-			<th>수</th>
-			<th>목</th>
-			<th>금</th>
-			<th>토</th>
-		</tr>
-		<tr>
-		<%
-			for(int i = 0; i < totalCell; i++){
-		%>
-		<%
-				if (i < beginBlank || i >= (beginBlank + lastDate)){
-		%>
-					<td>
-						&nbsp;
-					</td>
-		<%
-				} else {
-		%>
-					<td>
-						<%=i - beginBlank + 1%>
-					</td>
-		<%
-				}
-		
-				if ((i % 7) == 6){
-		%>
-				</tr>
-				<tr>
-		<%
-				}
-			}
-		%>
-		</tr>
-	</table> --%>
 </body>
 </html>

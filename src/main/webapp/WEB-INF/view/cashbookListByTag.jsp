@@ -6,16 +6,16 @@
 <head>
 <meta charset="UTF-8">
 <title>cashbook.jsp</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
 	<h1>${word}태그 캐쉬북</h1>
 	<!-- 컨트롤러 매핑 이름 : logout -->
-	<a href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth}">달력</a>
-	<a href="${pageContext.request.contextPath}/addCashbook?targetYear=${targetYear}&targetMonth=${targetMonth}&day=${day}">추가</a>
-	<a href="${pageContext.request.contextPath}/memberOne">회원정보</a>
-	<a href="${pageContext.request.contextPath}/logout">로그아웃</a>
+	<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/calendar">달력</a>
+	<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/memberOne">회원정보</a>
+	<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 	
-	<table>
+	<table class="table table-bordered">
 		<tr>
 			<th>수입/지출</th>
 			<th>금액</th>

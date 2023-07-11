@@ -13,7 +13,7 @@ import cash.vo.Cashbook;
 
 public class CashbookDao {
 	
-//	총갯수 출력
+//	tag 별 cashbook 총갯수 출력
 	public int totalTagCnt(String memberId, String word) {
 		int totalTagCnt = 0;
 		Connection conn = null;
@@ -29,6 +29,42 @@ public class CashbookDao {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId);
 			stmt.setString(2, word);
+			System.out.println(stmt);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				totalTagCnt = rs.getInt("cnt");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}				
+		}
+		return totalTagCnt;
+	}
+	
+//	날짜별 cashbook 총갯수 출력
+	public int totalCnt(String memberId, int targetYear, int targetMonth, int day) {
+		int totalTagCnt = 0;
+		Connection conn = null;
+		PreparedStatement stmt =null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) cnt"
+				+ " FROM cashbook"
+				+ " WHERE member_id = ? AND YEAR(cashbook_date) = ? AND MONTH(cashbook_date) = ? AND DAY(cashbook_date) = ?";
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			stmt.setInt(2, targetYear);
+			stmt.setInt(3, targetMonth + 1);
+			stmt.setInt(4, day);
 			System.out.println(stmt);
 			rs = stmt.executeQuery();
 			if (rs.next()) {
@@ -189,7 +225,7 @@ public class CashbookDao {
 	
 //	원하는 날짜의 cashbook data 출력
 //	override
-	public List<Cashbook> selectCashbookListByMonth(String memberId, int targetYear, int targetMonth, int day){
+	public List<Cashbook> selectCashbookListByMonth(String memberId, int targetYear, int targetMonth, int day, int beginRow, int rowPerPage){
 		List<Cashbook> list = new ArrayList<>();
 		
 		Connection conn = null;
@@ -199,7 +235,8 @@ public class CashbookDao {
 		String sql = "SELECT cashbook_no cashbookNo, category, price, cashbook_date cashbookDate, memo, createdate\r\n"
 				+ "FROM cashbook\r\n"
 				+ "WHERE member_id = ? AND YEAR(cashbook_date) = ? AND MONTH(cashbook_date) = ? AND DAY(cashbook_date) = ?\r\n"
-				+ "ORDER BY cashbook_date";
+				+ "ORDER BY cashbook_date\r\n"
+				+ "LIMIT ?, ?";
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
 			stmt = conn.prepareStatement(sql);
@@ -207,6 +244,8 @@ public class CashbookDao {
 			stmt.setInt(2, targetYear);
 			stmt.setInt(3, targetMonth + 1);
 			stmt.setInt(4, day);
+			stmt.setInt(5, beginRow);
+			stmt.setInt(6, rowPerPage);
 			System.out.println(stmt);
 			rs = stmt.executeQuery();
 			while(rs.next()) {

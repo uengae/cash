@@ -8,15 +8,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import cash.model.CashbookDao;
 import cash.vo.Cashbook;
+import cash.vo.Member;
 
 @WebServlet("/cashbookListByTag")
 public class CashbookListController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		session 구현
-		String memberId = "user1";
+		HttpSession session = request.getSession();
+		Member loginMember = new Member();
+		
+		if(session.getAttribute("loginMember") != null) {
+			loginMember = (Member) (session.getAttribute("loginMember"));
+		}else {
+			request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+			return;
+		}
+		String memberId = loginMember.getMemberId();
 		
 		String word = request.getParameter("word");
 		

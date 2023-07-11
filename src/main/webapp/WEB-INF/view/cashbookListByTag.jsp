@@ -9,7 +9,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
-	<h1>${word}태그 캐쉬북</h1>
+	<h3>${word}태그 캐쉬북</h3>
 	<!-- 컨트롤러 매핑 이름 : logout -->
 	<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/calendar">달력</a>
 	<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/memberOne">회원정보</a>
@@ -36,21 +36,21 @@
 		<tr>
 			<c:if test="${beginPage > 1}">
 				<td>
-					<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${beginPage + pagePerPage}">
+					<a class="btn btn-outline-secondary btn-sm" href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${beginPage + pagePerPage}">
 						이전
 					</a>
 				</td>
 			</c:if>
 			<c:forEach var="i" begin="${beginPage}" end="${endPage}">
 				<td>
-					<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${i}">
+					<a class="btn btn-outline-secondary btn-sm" href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${i}">
 						${i}
 					</a>
 				</td>
 			</c:forEach>
 			<c:if test="${endPage < tatalTagPage}">
 				<td>
-					<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${beginPage + pagePerPage}">
+					<a class="btn btn-outline-secondary btn-sm" href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${beginPage + pagePerPage}">
 						다음
 					</a>
 				</td>

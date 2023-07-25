@@ -46,6 +46,7 @@
 				<tr>
 					<th>아이디</th>
 					<td>
+					<!-- 로그인 되게 아이디 비번 넣어두기 -->
 						<input type ="text" name="memberId" id="memberId" value="${loginId}">
 					</td>
 				</tr>
@@ -73,5 +74,6 @@
 			</div>
 		</div>
 	</form>
+	<!-- 프로젝트 관련 내용 -->
 </body>
 </html>

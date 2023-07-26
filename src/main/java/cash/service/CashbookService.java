@@ -16,16 +16,19 @@ public class CashbookService {
 		int checkRow = 0;
 		Connection conn = null;
 		String driver = "org.mariadb.jdbc.Driver";
-		String dbUrl = "jdbc:mariadb://127.0.0.1:3306/cash";
+		String dbUrl = "jdbc:mariadb://43.201.156.144:3306/cash";
 		String dbUser = "root";
 		String dbPw = "java1234";
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(dbUrl, dbUser, dbPw);
 			conn.setAutoCommit(false);
+//			cashbook data 입력
 			CashbookDao cashbookDao = new CashbookDao();
 			int cashbookNo = cashbookDao.insertCashbook(conn, cashbook);
 			System.out.println("check service");
+			
+//			hashtag 입력
 			HashtagDao hashtagDao = new HashtagDao();
 			List<Hashtag> list = new ArrayList<Hashtag>();
 			list = hashtagDao.splitHashtag(cashbook.getMemo(), cashbookNo);

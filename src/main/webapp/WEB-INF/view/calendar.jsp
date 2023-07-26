@@ -34,6 +34,7 @@
 		 -->
 		<!-- 자바코드(제어문) : JSTL 사용 하여 java코드 없어짐 -->
 		<form action="${pageContext.request.contextPath}/calendar" method="get" id="changeMonthForm">
+			&nbsp;
 			<h3>
 				<input type="hidden" name="targetMonth" id="targetMonth">
 				<input type="hidden" name="targetYear" value="${targetYear}">
@@ -45,6 +46,8 @@
 		<h4>현재 접속자 : ${currentCounter}</h4>
 		<div>
 			<h4>이달의 해시테그</h4>
+			<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/memberOne">회원정보</a>
+			<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 			<div>
 				<c:forEach var="m" items="${htList}">
 					<a class="btn btn-outline-secondary btn-sm" href="${pageContext.request.contextPath}/cashbookListByTag?word=${m.word}">

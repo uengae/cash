@@ -30,7 +30,6 @@ public class LoginController extends HttpServlet {
 		
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/login.jsp");
-		rd.forward(request, response);
 
 //		쿠키에 저장된 아이디가 있다면 request속성에 저장
 		Cookie[] cookies = request.getCookies();
@@ -39,7 +38,9 @@ public class LoginController extends HttpServlet {
 				System.out.println(c.getName() + " <- cookie");
 				if(c.getName().equals("loginId") == true) {
 					request.setAttribute("loginId", c.getValue());
+					request.setAttribute("idCheck", "checked");
 				}
+				System.out.println(c.getValue() + " <- cookie Value");
 			}
 		}
 		
@@ -49,6 +50,7 @@ public class LoginController extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/cashbook");
 			return;
 		}
+		rd.forward(request, response);
 	}
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -63,7 +65,7 @@ public class LoginController extends HttpServlet {
 		//로그인 실패
 		if(loginMember==null) {
 			System.out.println("로그인 실패");
-			response.sendRedirect(request.getContextPath()+"/login");		//get방식으로 오기 떄문에 jsp페이지로 간다
+			response.sendRedirect(request.getContextPath()+"/login");
 			return;		
 		}
 		
@@ -73,13 +75,17 @@ public class LoginController extends HttpServlet {
 			Cookie loginIdCookie = new Cookie("loginId", memberId);
 //			loginIdCookie.setMaxAge(60*60*24); // 초단위
 			response.addCookie(loginIdCookie);
+		} else {
+			Cookie loginIdCookie = new Cookie("loginId", null);
+			loginIdCookie.setMaxAge(0); // 초단위
+			response.addCookie(loginIdCookie);
 		}
 		
 		//로그인 성공시 세션 사용
 		HttpSession session = request.getSession();
 //		System.out.println("로그인 성공");
 		session.setAttribute("loginMember", loginMember);
-		response.sendRedirect(request.getContextPath()+"/cashbook");		//get방식으로 오기 떄문에 jsp페이지로 간다
+		response.sendRedirect(request.getContextPath()+"/cashbook");
 	}
 
 }

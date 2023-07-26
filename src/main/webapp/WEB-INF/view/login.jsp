@@ -42,6 +42,9 @@
 			<table class="table caption-top table-bordered">
 				<caption>
 					<h3>캐시북 로그인</h3>
+					<h4>
+						test id : user1, 1234
+					</h4>
 				</caption>
 				<tr>
 					<th>아이디</th>
@@ -58,7 +61,7 @@
 				</tr>
 				<tr>
 					<th>
-						 ID저장 <input type="checkbox" name="idSave">
+						 ID저장 <input type="checkbox" name="idSave" ${idCheck}>
 					</th>
 					<td>
 						<button class="btn btn-secondary" type="button" id="loginBtn">로그인</button>

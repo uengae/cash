@@ -13,7 +13,7 @@ public class CounterService {
 		Connection conn = null;
 		try {
 //			conn.setAutoCommit(false);
-			String dbUrl = "jdbc:mariadb://127.0.0.1:3306/cash";
+			String dbUrl = "jdbc:mariadb://43.201.156.144:3306/cash";
 			String dbUser = "root";
 			String dbPw = "java1234";
 			conn = DriverManager.getConnection(dbUrl, dbUser, dbPw);
@@ -36,7 +36,7 @@ public class CounterService {
 		Connection conn = null;
 		try {
 //			conn.setAutoCommit(false);
-			String dbUrl = "jdbc:mariadb://127.0.0.1:3306/cash";
+			String dbUrl = "jdbc:mariadb://43.201.156.144:3306/cash";
 			String dbUser = "root";
 			String dbPw = "java1234";
 			conn = DriverManager.getConnection(dbUrl, dbUser, dbPw);
@@ -59,7 +59,7 @@ public class CounterService {
 		Connection conn = null;
 		int counter = 0;
 		try {
-			String dbUrl = "jdbc:mariadb://127.0.0.1:3306/cash";
+			String dbUrl = "jdbc:mariadb://43.201.156.144:3306/cash";
 			String dbUser = "root";
 			String dbPw = "java1234";
 			conn = DriverManager.getConnection(dbUrl, dbUser, dbPw);
@@ -81,7 +81,7 @@ public class CounterService {
 		Connection conn = null;
 		int counter = 0;
 		try {
-			String dbUrl = "jdbc:mariadb://127.0.0.1:3306/cash";
+			String dbUrl = "jdbc:mariadb://43.201.156.144:3306/cash";
 			String dbUser = "root";
 			String dbPw = "java1234";
 			conn = DriverManager.getConnection(dbUrl, dbUser, dbPw);

@@ -26,7 +26,7 @@ public class HashtagDao {
 	      ResultSet rs = null;
 	      try {
 	         String driver = "org.mariadb.jdbc.Driver";
-	         String dbUrl = "jdbc:mariadb://127.0.0.1:3306/cash";
+	         String dbUrl = "jdbc:mariadb://43.201.156.144:3306/cash";
 	         String dbUser = "root";
 	         String dbPw = "java1234";
 	         Class.forName(driver);

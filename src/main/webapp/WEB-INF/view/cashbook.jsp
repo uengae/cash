@@ -10,6 +10,7 @@
 </head>
 <body>
 	<div class="container">
+		&nbsp;
 		<h3>${targetYear}년 ${targetMonth + 1}월 ${day}일 캐쉬북</h3>
 		<!-- 컨트롤러 매핑 이름 : logout -->
 		<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/calendar?targetYear=${targetYear}&targetMonth=${targetMonth}">달력</a>
@@ -22,6 +23,8 @@
 				<th>금액</th>
 				<th>메모</th>
 				<th>작성날짜</th>
+				<th>수정</th>
+				<th>삭제</th>
 			</tr> 
 			<c:set var="c" value="${list}"></c:set>
 			<c:forEach var="c" items="${list}">
@@ -30,6 +33,12 @@
 				<td>${c.price}</td>
 				<td>${c.memo}</td>
 				<td>${fn:substring(c.createdate, 0, 10)}</td>
+				<td>
+					<a class="btn btn-outline-secondary btn-sm" href="${pageContext.request.contextPath}/modifyCashbook?cashbookNo=${c.cashbookNo}">수정</a>
+				</td>
+				<td>
+					<a class="btn btn-outline-danger btn-sm" href="${pageContext.request.contextPath}/removeCashbook?cashbookNo=${c.cashbookNo}">삭제</a>
+				</td>
 			</tr>
 			</c:forEach>
 		</table>

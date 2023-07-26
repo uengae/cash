@@ -25,7 +25,7 @@ public class CashbookDao {
 				+ " WHERE c.member_id = ?"
 				+ " AND h.word = ?";
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://43.201.156.144:3306/cash","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId);
 			stmt.setString(2, word);
@@ -41,7 +41,6 @@ public class CashbookDao {
 				rs.close();
 				stmt.close();
 				conn.close();
-				rs.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}				
@@ -59,7 +58,7 @@ public class CashbookDao {
 				+ " FROM cashbook"
 				+ " WHERE member_id = ? AND YEAR(cashbook_date) = ? AND MONTH(cashbook_date) = ? AND DAY(cashbook_date) = ?";
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://43.201.156.144:3306/cash","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId);
 			stmt.setInt(2, targetYear);
@@ -77,7 +76,6 @@ public class CashbookDao {
 				rs.close();
 				stmt.close();
 				conn.close();
-				rs.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}				
@@ -132,7 +130,7 @@ public class CashbookDao {
 				+ " ORDER BY c.cashbook_date DESC"
 				+ " LIMIT ?, ?";
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://43.201.156.144:3306/cash","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId);
 			stmt.setString(2, word);
@@ -157,7 +155,6 @@ public class CashbookDao {
 				rs.close();
 				stmt.close();
 				conn.close();
-				rs.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}				
@@ -188,7 +185,7 @@ public class CashbookDao {
 				+ "WHERE member_id = ? and YEAR(cashbook_date) = ? AND MONTH(cashbook_date) = ?"
 				;
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://43.201.156.144:3306/cash","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId);
 			stmt.setInt(2, targetYear);
@@ -213,7 +210,6 @@ public class CashbookDao {
 				rs.close();
 				stmt.close();
 				conn.close();
-				rs.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}				
@@ -238,7 +234,7 @@ public class CashbookDao {
 				+ "ORDER BY cashbook_date\r\n"
 				+ "LIMIT ?, ?";
 		try {
-			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			conn = DriverManager.getConnection("jdbc:mariadb://43.201.156.144:3306/cash","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId);
 			stmt.setInt(2, targetYear);
@@ -265,12 +261,66 @@ public class CashbookDao {
 				rs.close();
 				stmt.close();
 				conn.close();
-				rs.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}				
 		}					
 		
 		return list;
+	}
+	
+//	cashbook data 삭제
+	public void removeCashbook (int cashbookNo) {
+		Connection conn = null;
+		PreparedStatement stmt =null;
+		
+		String sql = "DELETE FROM cashbook WHERE cashbook_no = ?";
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://43.201.156.144:3306/cash","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, cashbookNo);
+			System.out.println(stmt);
+			int row = stmt.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}				
+		}
+	}
+
+//	cashbook data 하나 불러오기
+	public Cashbook selectOneCashbook (int cashbookNo) {
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Cashbook c = new Cashbook();
+		String sql = "SELECT cashbook_date cashbookDate FROM cashbook WHERE cashbook_no = ?";
+
+		try {
+			conn = DriverManager.getConnection("jdbc:mariadb://43.201.156.144:3306/cash","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, cashbookNo);
+			System.out.println(stmt);
+			rs = stmt.executeQuery();
+			if(rs.next()) {
+				c.setCashbookDate(rs.getString("cashbookDate"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}				
+		}
+		return c;
 	}
 }

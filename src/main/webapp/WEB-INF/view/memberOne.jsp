@@ -14,13 +14,13 @@
 </head>
 <body>
 	<div class="container">
-	<h3>멤버 상세 정보</h3>
-	<p>id : <%=member.getMemberId()  %></p>
-	<p>pw :<%=member.getMemberpw() %> </p>
-	<p>가입일자 : <%=member.getCreatedate() %></p>
-	<p>수정일자 : <%=member.getUpdatedate() %></p>
-	<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/modifyMember">정보수정</a>
-	<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/removeMember">회원탈퇴</a>
+		&nbsp;
+		<h3>멤버 상세 정보</h3>
+		<p>id : <%=member.getMemberId()  %></p>
+		<p>가입일자 : <%=member.getCreatedate() %></p>
+		<p>수정일자 : <%=member.getUpdatedate() %></p>
+		<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/modifyMember">정보수정</a>
+		<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/removeMember">회원탈퇴</a>
 	</div>
 </body>
 </html>

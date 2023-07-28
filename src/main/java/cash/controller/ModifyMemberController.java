@@ -11,7 +11,7 @@ import cash.vo.*;
 import cash.model.*;
 
 @WebServlet("/modifyMember")
-public class modifyMemberController extends HttpServlet {
+public class ModifyMemberController extends HttpServlet {
 	//회원 수정폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

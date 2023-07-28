@@ -25,10 +25,11 @@ public class RemoveCashbookController extends HttpServlet {
 			return;
 		}
 		int cashbookNo = Integer.parseInt(request.getParameter("cashbookNo"));
+		String memberId = (String)session.getAttribute("loginMember");
 		CashbookDao cashbookDao = new CashbookDao();
 		
 //		cashbook 날짜 분할
-		Cashbook cashbook = cashbookDao.selectOneCashbook(cashbookNo);
+		Cashbook cashbook = cashbookDao.selectOneCashbook(cashbookNo, memberId);
 		String targetYear = cashbook.getCashbookDate().substring(0,4);
 		System.out.println(targetYear + "targetYear");
 		String targetMonth = Integer.parseInt(cashbook.getCashbookDate().substring(5,7)) - 1 +"";

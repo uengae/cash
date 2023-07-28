@@ -294,17 +294,18 @@ public class CashbookDao {
 	}
 
 //	cashbook data 하나 불러오기
-	public Cashbook selectOneCashbook (int cashbookNo) {
+	public Cashbook selectOneCashbook (int cashbookNo, String memberId) {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		Cashbook c = new Cashbook();
-		String sql = "SELECT cashbook_date cashbookDate FROM cashbook WHERE cashbook_no = ?";
+		String sql = "SELECT cashbook_date cashbookDate FROM cashbook WHERE cashbook_no = ? AND member_id = ?";
 
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://43.201.156.144:3306/cash","root","java1234");
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, cashbookNo);
+			stmt.setString(2, memberId);
 			System.out.println(stmt);
 			rs = stmt.executeQuery();
 			if(rs.next()) {

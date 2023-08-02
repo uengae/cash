@@ -17,6 +17,7 @@
 		<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/addCashbook?targetYear=${targetYear}&targetMonth=${targetMonth}&day=${day}">추가</a>
 		<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/memberOne">회원정보</a>
 		<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/logout">로그아웃</a>
+		<div style="">&nbsp;</div>
 		<table class="table table-bordered">
 			<tr>
 				<th>수입/지출</th>

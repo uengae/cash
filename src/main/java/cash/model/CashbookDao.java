@@ -299,7 +299,7 @@ public class CashbookDao {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		Cashbook c = new Cashbook();
-		String sql = "SELECT cashbook_date cashbookDate FROM cashbook WHERE cashbook_no = ? AND member_id = ?";
+		String sql = "SELECT category, price, memo, cashbook_date cashbookDate FROM cashbook WHERE cashbook_no = ? AND member_id = ?";
 
 		try {
 			conn = DriverManager.getConnection("jdbc:mariadb://43.201.156.144:3306/cash","root","java1234");

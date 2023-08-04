@@ -84,16 +84,20 @@
 		프로젝트 내용 : 가계부 작성<br>
 		<br>
 		사용 툴: Eclipse, HeidiSQL<br>
-		사용언어: java, SQL, jsp<br>
+		사용언어: java, SQL, jsp, jQuery, ajax, EL, JSTL<br>
 		사용 DB: MariaDB(10.5)<br>
 		사용 WAS: Tomcat (9.0)<br>
 		<br>
-		개발내용<br>
-		페이징, 10페이지 단위 이동 구현<br>
-		회원가입, 댓글, 게시글, 카테고리 구현<br>
-		각 항목별로 삽입, 삭제, 수정 기능 구현<br>
-		로그인 기능 구현<br>
-		기간 2023.05.02 ~ 2023.05.15<br>
+		Model 2 방식으로 만든 개인 프로젝트<br>
+		Java의 Calendar API를 이용하여 달력을 만들어 가계부를 구성<br>
+		세션을 통해 로그인 기능을 구현<br>
+		cookie를 이용하여 id 저장 기능 구현<br>
+		ajax를 이용하여 비동기식으로 id, pw 체크 기능을 구현<br>
+		listener를 이용하여 방분자 수 체크와 현재 접속자를 체크할 수 있도록 구현<br>
+		filter를 이용하여 모든페이지가 utf-8로 인코딩되게 구현<br>
+		service를 이용하여 트랜잭션을 구현<br>
+		<br>
+		기간 2023.06.30 ~ 2023.07.14<br>
 	</div>
 </body>
 </html>

@@ -79,8 +79,8 @@
 	</form>
 	<hr>
 	<!-- 프로젝트 관련 내용 -->
-	<h3>cashbook프로젝트</h3>
-	<div>
+	<div class="container">
+		<h3>cashbook프로젝트</h3>
 		프로젝트 내용 : 가계부 작성<br>
 		<br>
 		사용 툴: Eclipse, HeidiSQL<br>

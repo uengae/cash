@@ -25,7 +25,7 @@ public class RemoveCashbookController extends HttpServlet {
 			return;
 		}
 		int cashbookNo = Integer.parseInt(request.getParameter("cashbookNo"));
-		String memberId = (String)session.getAttribute("loginMember");
+		String memberId = ((Member)session.getAttribute("loginMember")).getMemberId();
 		CashbookDao cashbookDao = new CashbookDao();
 		
 //		cashbook 날짜 분할

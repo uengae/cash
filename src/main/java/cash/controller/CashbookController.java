@@ -24,7 +24,7 @@ public class CashbookController extends HttpServlet {
 		Member loginMember = new Member();
 		
 		if(session.getAttribute("loginMember") != null) {
-			loginMember = (Member) (session.getAttribute("loginMember"));
+			loginMember = (Member)(session.getAttribute("loginMember"));
 		}else {
 			request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
 			return;

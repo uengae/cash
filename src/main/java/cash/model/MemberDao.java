@@ -16,7 +16,7 @@ public class MemberDao {
 			
 			try {
 				Class.forName("org.mariadb.jdbc.Driver");
-				conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+				conn = DriverManager.getConnection("jdbc:mariadb://43.201.156.144:3306/cash","root","java1234");
 				stmt = conn.prepareStatement(sql);
 				stmt.setString(1, paramMember.getMemberId());
 				stmt.setString(2, paramMember.getMemberpw());
@@ -51,7 +51,7 @@ public class MemberDao {
 			
 			try {
 				Class.forName("org.mariadb.jdbc.Driver");
-				conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+				conn = DriverManager.getConnection("jdbc:mariadb://43.201.156.144:3306/cash","root","java1234");
 				stmt = conn.prepareStatement(sql);
 				stmt.setString(1, member.getMemberId());
 				stmt.setString(2, member.getMemberpw());
@@ -80,7 +80,7 @@ public class MemberDao {
 			
 			try {
 				Class.forName("org.mariadb.jdbc.Driver");
-				conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+				conn = DriverManager.getConnection("jdbc:mariadb://43.201.156.144:3306/cash","root","java1234");
 				stmt = conn.prepareStatement(sql);
 				stmt.setString(1, id);
 		        rs = stmt.executeQuery();
@@ -116,7 +116,7 @@ public class MemberDao {
 			
 			try {
 				Class.forName("org.mariadb.jdbc.Driver");
-				conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+				conn = DriverManager.getConnection("jdbc:mariadb://43.201.156.144:3306/cash","root","java1234");
 				stmt = conn.prepareStatement(sql);
 				stmt.setString(1, id);
 				stmt.setString(2, pw);
@@ -154,7 +154,7 @@ public class MemberDao {
 			
 			try {
 				Class.forName("org.mariadb.jdbc.Driver");
-				conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+				conn = DriverManager.getConnection("jdbc:mariadb://43.201.156.144:3306/cash","root","java1234");
 				stmt = conn.prepareStatement(sql);
 				stmt.setString(1, memberId);
 				rs = stmt.executeQuery();
@@ -190,7 +190,7 @@ public class MemberDao {
 			
 			try {
 				Class.forName("org.mariadb.jdbc.Driver");
-				conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+				conn = DriverManager.getConnection("jdbc:mariadb://43.201.156.144:3306/cash","root","java1234");
 				stmt = conn.prepareStatement(sql);
 				stmt.setString(1, modifyMember.getMemberpw());
 				stmt.setString(2, modifyMember.getMemberId());
@@ -227,7 +227,7 @@ public class MemberDao {
 			
 			try {
 				Class.forName("org.mariadb.jdbc.Driver");
-				conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+				conn = DriverManager.getConnection("jdbc:mariadb://43.201.156.144:3306/cash","root","java1234");
 				stmt = conn.prepareStatement(sql);
 				stmt.setString(1, member.getMemberId());
 				stmt.setString(2, member.getMemberpw());

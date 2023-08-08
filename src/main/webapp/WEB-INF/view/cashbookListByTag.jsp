@@ -23,7 +23,6 @@
 				<th>금액</th>
 				<th>메모</th>
 				<th>작성날짜</th>
-				<th>수정</th>
 				<th>삭제</th>
 			</tr>
 			<c:set var="c" value="${list}"></c:set>
@@ -33,9 +32,6 @@
 				<td>${c.price}</td>
 				<td>${c.memo}</td>
 				<td>${fn:substring(c.createdate, 0, 10)}</td>
-				<td>
-					<a class="btn btn-outline-secondary btn-sm" href="${pageContext.request.contextPath}/modifyCashbook?cashbookNo=${c.cashbookNo}">수정</a>
-				</td>
 				<td>
 					<a class="btn btn-outline-danger btn-sm" href="${pageContext.request.contextPath}/removeCashbook?cashbookNo=${c.cashbookNo}">삭제</a>
 				</td>
